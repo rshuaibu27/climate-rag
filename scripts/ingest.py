@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import requests
 import json
 import time
@@ -86,3 +90,10 @@ with open("data/papers.json", "w") as f:
     json.dump(unique_papers, f, indent=2)
 
 print("Saved to data/papers.json")
+
+from src.retriever import Retriever
+
+print("\nIndexing papers into ChromaDB...")
+retriever = Retriever()
+retriever.index_papers(unique_papers)
+print("Done! Papers are indexed and ready to search.")
